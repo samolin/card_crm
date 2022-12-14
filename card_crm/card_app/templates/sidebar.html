@@ -1,0 +1,33 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>CARDS CRM</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li>
+            <a href="{% url 'home' %}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+        </li>
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Transaction</a>
+        </li>
+        <li>
+            <a href="#">Contact</a>
+        </li>
+    </ul>
+    <h2>Generate card</h2>
+    <form action="{% url 'generate-card' %}" method="POST">
+        {% csrf_token %}
+        {{ generate_card.user.label }} {{ generate_card.user }}<br>
+        {{ generate_card.serial_number.label }} {{ generate_card.serial_number }}<br>
+        {{ generate_card.amount.label }} {{ generate_card.amount }}<br>
+        {{ generate_card.expired_date.label }} {{ generate_card.expired_date }}
+        <button type="submit">Generate card</button>
+    </form>
+</nav>

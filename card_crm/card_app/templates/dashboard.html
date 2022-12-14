@@ -1,0 +1,98 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="header">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="item" style="max-width: 450px">
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                    </tr>
+                    {% for user in users %}
+                    <tr>   
+                        <form action="" method="post" id="user_form_{{user.id}}">
+                            {% csrf_token %}
+                            <input type="hidden" name="user" value="{{ user.username }}">
+                            <td><a href="#" onclick="document.getElementById('user_form_{{user.id}}').submit(); return false;" class="sendform-btn">{{ user.username }}</a></td>
+                        </form> 
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="item">
+                <table>
+                    <tr>
+                        <form method="GET" action="">
+                            <th>{{ filter.form.serial_number }}</th>
+                            <th>{{ filter.form.number }}</th>
+                            <th>Released date {{ filter.form.released_date }}</th>
+                            <th>Expired date {{ filter.form.expired_date }}</th>
+                            <th>{{ filter.form.status }}</th>
+                            <th colspan="2">
+                            <button type="submit">Search</button>
+                        </form>
+                        </th>
+                    </tr>
+                    {% for card in cards %}
+                    <tr>
+                        <td>{{ card.serial_number }}</td>
+                        <form action="" method="post" id="card_form_{{ card.number }}">
+                            {% csrf_token %}
+                            <input type="hidden" name="card" value="{{ card.number }}">
+                            <td><a href="#" onclick="document.getElementById('card_form_{{ card.number }}').submit(); return false;" class="sendform-btn">{{ card.number }}</a></td>
+                        </form>
+
+                        <td>{{ card.time_released_date }}</td>
+                        <td>{{ card.time_expired_date }}</td>
+                        <td>{{ card.is_overdue }}</td>
+                        {% if card.status == 'deactivated' %}
+                            <td><a href="{% url 'changestatus' card.number %}"><button>activate</button></a></td>
+                        {% elif card.status == 'activated' %}
+                            <td><a href="{% url 'changestatus' card.number %}"><button>deactivate</button></a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td><a href="{% url 'deletecard' card.number %}"><button>delete</button></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <td>
+                    
+                </td>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="item-2">
+                <h2 style="text-align: center;">Transaction</h2>
+                <table>
+                    <tr>
+                        <th>Card</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Purchase</th>
+                    </tr>
+                    {% for transaction in transaсtions  %}
+                    <tr>
+                        <td>{{ transaction.card }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.time_transaction }}</td>
+                        <td>{{ transaction.purchase }}</td>
+                    </tr>
+                    {% endfor %}
+            </div>
+        </div>
+</div>
+

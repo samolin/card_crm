@@ -1,0 +1,5 @@
+/card_crm/crm_app.sqlite3
+/card_crm/card_app/__pycache__/*
+/card_crm/card_app/migrations/*
+/card_crm/card_crm/__pycache__/*
+/venv/
