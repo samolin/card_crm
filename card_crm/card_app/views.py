@@ -9,19 +9,13 @@ from .filters import CardFilter
 def index(request):
     generate_card = GenerateCardForm
     if request.method == 'GET':
-        cards = Card.objects.all()
         transaсtions = Transaction.objects.all()
     if request.method == 'POST':
-        print(request.POST)
-        if request.POST.get('user'):
-            user = User.objects.get(username=request.POST.get('user'))
-            cards = Card.objects.filter(user=user).all()
-        else:
-            cards = Card.objects.all()
         if request.POST.get('card'):
             transaсtions = Transaction.objects.filter(card=request.POST.get('card'))
         else:
             transaсtions = Transaction.objects.all()
+    cards = Card.objects.all()
     users = User.objects.all()
     filter = CardFilter(request.GET, queryset=cards)
     cards = filter.qs
