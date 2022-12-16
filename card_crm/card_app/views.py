@@ -6,6 +6,7 @@ from .models import Card, Transaction
 from .forms import GenerateCardForm
 from .filters import CardFilter
 
+
 def index(request):
     generate_card = GenerateCardForm
     if request.method == 'GET':
@@ -15,9 +16,8 @@ def index(request):
             transaсtions = Transaction.objects.filter(card=request.POST.get('card'))
         else:
             transaсtions = Transaction.objects.all()
-    cards = Card.objects.all()
     users = User.objects.all()
-    filter = CardFilter(request.GET, queryset=cards)
+    filter = CardFilter(request.GET, queryset=Card.objects.all())
     cards = filter.qs
     context = {
         'users': users,
@@ -26,8 +26,11 @@ def index(request):
         'filter': filter,
         'transaсtions': transaсtions,
     }
-    return render(request, 'main.html', context=context)
+    return render(request, 'dashboard.html', context=context)
 
+
+def transactions(request):
+    return render(request, 'transactions.html')
 
 def change_status(request, pk):
     card = Card.objects.get(pk=pk)

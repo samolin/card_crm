@@ -58,7 +58,7 @@ class Transaction(models.Model):
     
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     date = models.DateTimeField(auto_now_add=True)
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='transactions')
     purchase = models.CharField(max_length=255)
 
     @property
