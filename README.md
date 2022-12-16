@@ -9,3 +9,7 @@
 * python card_crm/manage.py migrate
 * python card_crm/manage.py createsuperuser 
 * python card_crm/manage.py runserver
+
+![image](https://github.com/samolin/card_crm/blob/main/readme_media/card_crm.gif)
+CRM Description:
+https://github.com/samolin/card_crm/blob/main/readme_media/card_crm.gif
