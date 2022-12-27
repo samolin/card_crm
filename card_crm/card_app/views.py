@@ -17,7 +17,7 @@ def index(request):
         else:
             transaсtions = Transaction.objects.all()
     users = User.objects.all()
-    filter = CardFilter(request.GET, queryset=Card.objects.all())
+    filter = CardFilter(request.GET, queryset=Card.objects.all().order_by('-released_date'))
     cards = filter.qs
     context = {
         'users': users,
